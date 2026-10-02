@@ -4,14 +4,11 @@ import {
   Users,
   Activity,
   Clock,
-  CheckCircle2,
-  AlertCircle,
-  TrendingUp,
   Stethoscope
 } from "lucide-react";
 
 export default function QueueMetrics() {
-  const { metrics, appointments } = useClinic();
+  const { metrics } = useClinic();
 
   const cards = [
     {
@@ -34,7 +31,7 @@ export default function QueueMetrics() {
       badge: "Live Triage",
     },
     {
-      title: "Currently In Consultation",
+      title: "In Consultation",
       value: metrics.inConsultationCount,
       subtitle: "Physicians actively consulting",
       icon: Stethoscope,
@@ -44,47 +41,49 @@ export default function QueueMetrics() {
       badge: "With Doctor",
     },
     {
-      title: "Average Waiting Time",
+      title: "Average Wait Time",
       value: `${metrics.avgWaitMinutes} mins`,
-      subtitle: "Guaranteed sub-10 min target",
+      subtitle: "Sub-10 min target met",
       icon: Clock,
       color: "text-emerald-700",
       bgIcon: "bg-emerald-50 text-emerald-600",
       accent: "border-emerald-200",
-      badge: "Target Met",
+      badge: "Guaranteed",
     },
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 mb-6 sm:mb-8">
       {cards.map((card, idx) => {
         const Icon = card.icon;
         return (
           <div
             key={idx}
-            className={`p-5 rounded-2xl bg-white border ${card.accent} shadow-soft hover:shadow-card transition-all`}
+            className={`p-3.5 sm:p-5 rounded-2xl bg-white border ${card.accent} shadow-2xs sm:shadow-soft hover:shadow-card transition-all flex flex-col justify-between`}
           >
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                {card.title}
-              </span>
-              <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${card.bgIcon}`}>
-                <Icon className="w-5 h-5" />
+            <div>
+              <div className="flex items-center justify-between mb-2 sm:mb-3">
+                <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider truncate mr-1">
+                  {card.title}
+                </span>
+                <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center shrink-0 ${card.bgIcon}`}>
+                  <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                </div>
+              </div>
+
+              <div className="flex items-baseline gap-1.5 mb-1 flex-wrap">
+                <span className={`text-2xl sm:text-3xl font-extrabold tracking-tight ${card.color}`}>
+                  {card.value}
+                </span>
+                {card.badge && (
+                  <span className="text-[9px] sm:text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-teal-100 text-teal-800 shrink-0">
+                    {card.badge}
+                  </span>
+                )}
               </div>
             </div>
 
-            <div className="flex items-baseline gap-2 mb-1">
-              <span className={`text-3xl font-extrabold tracking-tight ${card.color}`}>
-                {card.value}
-              </span>
-              {card.badge && (
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-teal-100 text-teal-800">
-                  {card.badge}
-                </span>
-              )}
-            </div>
-
-            <p className="text-xs text-slate-500">{card.subtitle}</p>
+            <p className="text-[10px] sm:text-xs text-slate-500 truncate">{card.subtitle}</p>
           </div>
         );
       })}

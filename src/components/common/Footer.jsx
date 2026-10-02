@@ -3,11 +3,9 @@ import { CLINIC_INFO, SPECIALTIES } from "../../data/clinicData";
 import {
   MapPin,
   Phone,
-  Mail,
   Clock,
   ShieldCheck,
   ExternalLink,
-  Heart,
   Navigation,
   CheckCircle2,
   Stethoscope
@@ -24,9 +22,10 @@ export default function Footer() {
   };
 
   return (
-    <footer id="contact" className="bg-slate-900 text-slate-300 pt-16 pb-24 md:pb-12 border-t border-slate-800">
+    <footer id="contact" className="bg-slate-900 text-slate-300 pt-14 pb-28 md:pb-12 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-12">
+          
           {/* Brand & Mission */}
           <div>
             <div className="flex items-center gap-3 mb-4">
@@ -37,7 +36,7 @@ export default function Footer() {
                 Aura<span className="text-teal-400">Med</span>
               </span>
             </div>
-            <p className="text-sm text-slate-400 leading-relaxed mb-6">
+            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed mb-5">
               Premier multi-specialty healthcare and outpatient center designed around patient respect, zero-queue efficiency, and top board-certified physicians.
             </p>
             <div className="flex flex-col gap-2 text-xs text-slate-400">
@@ -54,15 +53,15 @@ export default function Footer() {
 
           {/* Clinical Specialties */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-4">
+            <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-white mb-4">
               Core Specialties
             </h4>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2 text-xs sm:text-sm">
               {SPECIALTIES.map((spec) => (
                 <li key={spec.id}>
                   <a
                     href="#specialties"
-                    className="hover:text-teal-400 transition-colors inline-flex items-center gap-1.5"
+                    className="hover:text-teal-400 transition-colors inline-flex items-center gap-2 py-1 min-h-[36px]"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-teal-500" />
                     <span>{spec.name}</span>
@@ -74,10 +73,10 @@ export default function Footer() {
 
           {/* Operating Hours & Emergency */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-4">
+            <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-white mb-4">
               Operating Hours
             </h4>
-            <div className="space-y-3 text-sm">
+            <div className="space-y-3 text-xs sm:text-sm">
               <div className="flex items-start gap-2.5">
                 <Clock className="w-4 h-4 text-teal-400 mt-1 shrink-0" />
                 <div>
@@ -97,14 +96,13 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Location & Interactive Google Map Card */}
+          {/* Location & Google Map Card */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-4">
+            <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-white mb-4">
               Find Our Clinic
             </h4>
             <div className="rounded-xl overflow-hidden border border-slate-700 bg-slate-800/80 p-3">
-              <div className="relative h-28 w-full rounded-lg bg-slate-900 overflow-hidden mb-3 border border-slate-700/60 flex items-center justify-center">
-                {/* Stylized Map Mock Graphic */}
+              <div className="relative h-24 sm:h-28 w-full rounded-lg bg-slate-900 overflow-hidden mb-3 border border-slate-700/60 flex items-center justify-center">
                 <div className="absolute inset-0 opacity-40 bg-[radial-gradient(#14b8a6_1px,transparent_1px)] [background-size:12px_12px]" />
                 <div className="relative z-10 flex flex-col items-center text-center px-2">
                   <div className="w-8 h-8 rounded-full bg-teal-500 text-slate-950 flex items-center justify-center shadow-glow-teal animate-bounce">
@@ -122,7 +120,7 @@ export default function Footer() {
 
               <button
                 onClick={openDirections}
-                className="w-full py-2 px-3 rounded-lg bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-soft"
+                className="w-full min-h-[44px] py-2 px-3 rounded-lg bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-soft active:scale-95"
               >
                 <Navigation className="w-3.5 h-3.5" />
                 <span>Get Driving Directions</span>
@@ -133,12 +131,12 @@ export default function Footer() {
         </div>
 
         {/* Bottom Legal & Copyright Bar */}
-        <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4 text-center sm:text-left">
           <p>© {new Date().getFullYear()} AuraMed Specialty Healthcare. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <span className="hover:text-slate-400 cursor-pointer">Patient Privacy Policy</span>
-            <span className="hover:text-slate-400 cursor-pointer">Clinical Ethics</span>
-            <span className="hover:text-slate-400 cursor-pointer">HIPAA Notice</span>
+          <div className="flex flex-wrap justify-center sm:justify-end items-center gap-4 sm:gap-6">
+            <span className="hover:text-slate-400 cursor-pointer min-h-[32px] flex items-center">Patient Privacy Policy</span>
+            <span className="hover:text-slate-400 cursor-pointer min-h-[32px] flex items-center">Clinical Ethics</span>
+            <span className="hover:text-slate-400 cursor-pointer min-h-[32px] flex items-center">HIPAA Notice</span>
           </div>
         </div>
       </div>

@@ -2,16 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useClinic } from "../../context/ClinicContext";
 import { CLINIC_INFO } from "../../data/clinicData";
 import {
-  PhoneCall,
   Calendar,
-  Shield,
   Menu,
   X,
-  Sparkles,
   LayoutDashboard,
-  UserCheck,
-  Stethoscope,
-  HeartHandshake
+  Stethoscope
 } from "lucide-react";
 
 export default function Navbar() {
@@ -38,18 +33,18 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-40 transition-all duration-300">
       {/* Top Emergency & Trust Alert Bar */}
-      <div className="bg-slate-900 text-white text-xs py-1.5 px-4 sm:px-6 border-b border-slate-800">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className="bg-slate-900 text-white text-xs py-1.5 px-3 sm:px-6 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 sm:gap-4 overflow-hidden">
             <a
               href={`tel:${CLINIC_INFO.emergencyRaw}`}
-              className="inline-flex items-center gap-1.5 text-amber-400 hover:text-amber-300 font-semibold tracking-wide transition-colors shrink-0"
+              className="inline-flex items-center gap-1.5 text-amber-400 hover:text-amber-300 font-semibold tracking-wide transition-colors shrink-0 text-[11px] sm:text-xs"
             >
-              <span className="relative flex h-2 w-2">
+              <span className="relative flex h-2 w-2 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
               </span>
-              <span>24/7 Trauma Emergency:</span>
+              <span>24/7 Emergency:</span>
               <span className="font-mono text-white underline decoration-red-500/50">{CLINIC_INFO.emergencyHotline}</span>
             </a>
             <span className="hidden md:inline text-slate-500">•</span>
@@ -58,12 +53,12 @@ export default function Navbar() {
             </span>
           </div>
 
-          {/* Quick Reception Hotline & Hours */}
-          <div className="flex items-center gap-3 shrink-0">
+          {/* Quick Reception Hotline */}
+          <div className="flex items-center gap-2 shrink-0 text-[11px] sm:text-xs">
             <span className="hidden sm:inline text-slate-400">Reception:</span>
             <a
               href={`tel:${CLINIC_INFO.phoneRaw}`}
-              className="text-slate-200 hover:text-teal-300 font-mono text-xs transition-colors"
+              className="text-slate-200 hover:text-teal-300 font-mono transition-colors"
             >
               {CLINIC_INFO.phone}
             </a>
@@ -75,26 +70,27 @@ export default function Navbar() {
       <nav
         className={`w-full transition-all duration-200 ${
           isScrolled
-            ? "glass-nav shadow-soft py-3"
-            : "bg-white/95 backdrop-blur-md py-4 border-b border-slate-200/80"
+            ? "glass-nav shadow-soft py-2.5 sm:py-3"
+            : "bg-white/95 backdrop-blur-md py-3 sm:py-4 border-b border-slate-200/80"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between">
+          
           {/* Brand Logo & Tagline */}
-          <a href="#" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-teal-600 via-teal-500 to-medblue-600 flex items-center justify-center text-white shadow-glow-teal group-hover:scale-105 transition-transform">
-              <Stethoscope className="w-6 h-6 stroke-[2.2]" />
+          <a href="#" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-teal-600 via-teal-500 to-medblue-600 flex items-center justify-center text-white shadow-glow-teal group-hover:scale-105 transition-transform">
+              <Stethoscope className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.2]" />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="text-xl font-extrabold tracking-tight text-slate-900">
+                <span className="text-lg sm:text-xl font-extrabold tracking-tight text-slate-900">
                   Aura<span className="text-teal-600">Med</span>
                 </span>
-                <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-teal-100 text-teal-800 border border-teal-200">
-                  Specialty Care
+                <span className="text-[9px] sm:text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-teal-100 text-teal-800 border border-teal-200">
+                  Specialty
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 font-medium hidden sm:block">
+              <p className="text-[10px] sm:text-[11px] text-slate-500 font-medium hidden sm:block">
                 Modern Healthcare • Zero Waiting Queue
               </p>
             </div>
@@ -114,51 +110,49 @@ export default function Navbar() {
           </div>
 
           {/* Interactive Admin Mode Toggle & Book Action */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             {/* Clinic Owner Preview Toggle Button */}
-            <div className="relative">
-              <button
-                type="button"
-                onClick={() => setIsAdminMode(!isAdminMode)}
-                className={`group flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold transition-all shadow-sm border ${
-                  isAdminMode
-                    ? "bg-gradient-to-r from-medblue-700 to-slate-900 text-white border-medblue-500 shadow-glow-blue"
-                    : "bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300"
-                }`}
-                title="Toggle between Patient Experience and Clinic Owner Reception Cockpit"
-              >
-                {isAdminMode ? (
-                  <>
-                    <LayoutDashboard className="w-3.5 h-3.5 text-teal-300 animate-spin" style={{ animationDuration: "12s" }} />
-                    <span>Clinic Console</span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-teal-400" />
-                  </>
-                ) : (
-                  <>
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
-                    </span>
-                    <span className="hidden sm:inline">Clinic Owner Preview</span>
-                    <span className="sm:hidden">Owner Mode</span>
-                  </>
-                )}
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={() => setIsAdminMode(!isAdminMode)}
+              className={`min-h-[44px] flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 rounded-full text-xs font-bold transition-all shadow-sm border active:scale-95 ${
+                isAdminMode
+                  ? "bg-gradient-to-r from-medblue-700 to-slate-900 text-white border-medblue-500 shadow-glow-blue"
+                  : "bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300"
+              }`}
+              title="Toggle between Patient Experience and Clinic Owner Reception Cockpit"
+            >
+              {isAdminMode ? (
+                <>
+                  <LayoutDashboard className="w-3.5 h-3.5 text-teal-300 animate-spin" style={{ animationDuration: "12s" }} />
+                  <span>Clinic Console</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal-400" />
+                </>
+              ) : (
+                <>
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+                  </span>
+                  <span className="hidden sm:inline">Clinic Owner Preview</span>
+                  <span className="sm:hidden text-[11px]">Owner Mode</span>
+                </>
+              )}
+            </button>
 
-            {/* Primary Booking Trigger */}
+            {/* Desktop Booking Trigger */}
             <button
               onClick={() => openBookingModal()}
-              className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-sm font-bold shadow-soft hover:shadow-glow-teal transition-all active:scale-95"
+              className="hidden md:inline-flex items-center gap-2 min-h-[44px] px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-sm font-bold shadow-soft hover:shadow-glow-teal transition-all active:scale-95"
             >
               <Calendar className="w-4 h-4" />
               <span>Book Appointment</span>
             </button>
 
-            {/* Mobile Menu Hamburger */}
+            {/* Mobile Hamburger (min 44x44px touch target) */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors"
+              className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors active:scale-95"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -169,24 +163,24 @@ export default function Navbar() {
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden px-4 pt-3 pb-6 border-t border-slate-200 bg-white shadow-xl animate-in slide-in-from-top-2 duration-200">
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-1.5">
               {navLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:text-teal-600 transition-colors"
+                  className="min-h-[44px] flex items-center px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:text-teal-600 transition-colors"
                 >
                   {link.label}
                 </a>
               ))}
-              <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
+              <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
                     openBookingModal();
                   }}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-teal-600 text-white text-sm font-bold shadow-soft"
+                  className="w-full min-h-[48px] flex items-center justify-center gap-2 py-3 rounded-xl bg-teal-600 text-white text-sm font-bold shadow-soft active:scale-95"
                 >
                   <Calendar className="w-4 h-4" />
                   <span>Book Appointment Online</span>
@@ -196,7 +190,7 @@ export default function Navbar() {
                     setMobileMenuOpen(false);
                     setIsAdminMode(!isAdminMode);
                   }}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-100 text-slate-800 text-xs font-semibold"
+                  className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-100 text-slate-800 text-xs font-semibold active:scale-95"
                 >
                   <LayoutDashboard className="w-4 h-4 text-teal-600" />
                   <span>Switch to {isAdminMode ? "Patient Portal" : "Clinic Owner Preview"}</span>

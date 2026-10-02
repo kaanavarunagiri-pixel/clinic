@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, Sphere, Torus, Box } from "@react-three/drei";
-import { Sparkles, Eye, ArrowRight, ShieldCheck } from "lucide-react";
+import { Sparkles, ArrowRight } from "lucide-react";
 
 // Micro 3D preview model inside the tour card
 function MiniHologram({ mode }) {
@@ -9,8 +9,8 @@ function MiniHologram({ mode }) {
 
   useFrame((_, delta) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.8;
-      meshRef.current.rotation.x += delta * 0.4;
+      meshRef.current.rotation.y += delta * 0.7;
+      meshRef.current.rotation.x += delta * 0.35;
     }
   });
 
@@ -18,30 +18,30 @@ function MiniHologram({ mode }) {
     <group ref={meshRef}>
       {mode === "imaging" && (
         <>
-          <Torus args={[0.9, 0.08, 16, 32]} rotation={[Math.PI / 3, 0, 0]}>
+          <Torus args={[0.9, 0.08, 12, 24]} rotation={[Math.PI / 3, 0, 0]}>
             <meshStandardMaterial color="#0d9488" emissive="#14b8a6" emissiveIntensity={1.2} />
           </Torus>
-          <Sphere args={[0.45, 16, 16]}>
+          <Sphere args={[0.42, 12, 12]}>
             <meshStandardMaterial color="#0284c7" emissive="#38bdf8" emissiveIntensity={0.8} roughness={0.2} />
           </Sphere>
         </>
       )}
       {mode === "smart" && (
         <>
-          <Box args={[0.8, 0.8, 0.8]}>
+          <Box args={[0.75, 0.75, 0.75]}>
             <meshStandardMaterial color="#0284c7" emissive="#0369a1" emissiveIntensity={1.0} wireframe />
           </Box>
-          <Sphere args={[0.3, 16, 16]}>
+          <Sphere args={[0.28, 12, 12]}>
             <meshStandardMaterial color="#2dd4bf" emissive="#14b8a6" emissiveIntensity={1.5} />
           </Sphere>
         </>
       )}
       {mode === "safety" && (
         <>
-          <Torus args={[0.8, 0.1, 16, 32]}>
+          <Torus args={[0.75, 0.09, 12, 24]}>
             <meshStandardMaterial color="#14b8a6" emissive="#5eead4" emissiveIntensity={1.4} />
           </Torus>
-          <Box args={[0.3, 1.0, 0.3]}>
+          <Box args={[0.28, 0.9, 0.28]}>
             <meshStandardMaterial color="#0284c7" emissive="#0284c7" emissiveIntensity={0.7} />
           </Box>
         </>
@@ -62,15 +62,15 @@ export default function InteractiveTourCard({
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
+    // Only apply tilt on fine pointer (desktop mouse)
+    if (window.matchMedia("(pointer: coarse)").matches || !cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    // Calculate subtle 3D tilt
-    const rotX = -((y - centerY) / centerY) * 10;
-    const rotY = ((x - centerX) / centerX) * 10;
+    const rotX = -((y - centerY) / centerY) * 8;
+    const rotY = ((x - centerX) / centerX) * 8;
     setRotate({ x: rotX, y: rotY });
   };
 
@@ -89,7 +89,7 @@ export default function InteractiveTourCard({
         transform: `perspective(1000px) rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)`,
         transition: isHovered ? "transform 0.1s ease-out" : "transform 0.5s ease-out",
       }}
-      className="relative rounded-2xl p-6 bg-gradient-to-br from-slate-900/90 via-slate-900/95 to-teal-950/70 border border-teal-500/30 text-white shadow-xl overflow-hidden group"
+      className="relative rounded-2xl p-5 sm:p-6 bg-gradient-to-br from-slate-900/90 via-slate-900/95 to-teal-950/70 border border-teal-500/30 text-white shadow-xl overflow-hidden group touch-pan-y-safe"
     >
       {/* Holographic light shimmer */}
       <div
@@ -100,7 +100,7 @@ export default function InteractiveTourCard({
       />
 
       {/* Header Tag */}
-      <div className="flex items-center justify-between mb-4 z-10 relative">
+      <div className="flex items-center justify-between mb-3 z-10 relative">
         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/20 border border-teal-400/30 text-teal-300 text-xs font-semibold">
           <Sparkles className="w-3.5 h-3.5" />
           {tag}
@@ -108,17 +108,18 @@ export default function InteractiveTourCard({
         <div className="w-2 h-2 rounded-full bg-teal-400 animate-ping" />
       </div>
 
-      {/* Mini 3D Holographic Canvas */}
-      <div className="w-full h-36 rounded-xl bg-slate-950/60 border border-slate-800/80 mb-4 overflow-hidden relative">
+      {/* Mini 3D Holographic Canvas (pointer-events-none so mobile scroll passes through) */}
+      <div className="w-full h-32 sm:h-36 rounded-xl bg-slate-950/60 border border-slate-800/80 mb-4 overflow-hidden relative pointer-events-none">
         <Canvas
           camera={{ position: [0, 0, 3], fov: 45 }}
-          style={{ touchAction: "none" }}
+          style={{ touchAction: "pan-y" }}
           gl={{ alpha: true }}
+          dpr={[1, 1.5]}
         >
           <ambientLight intensity={0.9} />
           <pointLight position={[2, 2, 2]} intensity={2.0} color="#38bdf8" />
           <pointLight position={[-2, -2, 2]} intensity={1.5} color="#14b8a6" />
-          <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
+          <Float speed={1.8} rotationIntensity={0.4} floatIntensity={0.4}>
             <MiniHologram mode={mode} />
           </Float>
         </Canvas>
@@ -130,7 +131,7 @@ export default function InteractiveTourCard({
 
       {/* Content */}
       <div className="relative z-10">
-        <h4 className="text-base font-bold text-white mb-1 group-hover:text-teal-300 transition-colors">
+        <h4 className="text-sm sm:text-base font-bold text-white mb-1 group-hover:text-teal-300 transition-colors">
           {title}
         </h4>
         <p className="text-xs text-slate-300 leading-relaxed mb-4">
@@ -139,7 +140,7 @@ export default function InteractiveTourCard({
 
         <button
           onClick={onActionClick}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-teal-300 hover:text-teal-200 transition-colors group-hover:translate-x-1 duration-200"
+          className="inline-flex items-center gap-1.5 min-h-[44px] text-xs font-semibold text-teal-300 hover:text-teal-200 transition-colors group-hover:translate-x-1 duration-200 active:scale-95"
         >
           <span>Explore clinical details</span>
           <ArrowRight className="w-3.5 h-3.5" />

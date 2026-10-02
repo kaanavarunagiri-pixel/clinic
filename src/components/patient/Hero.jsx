@@ -8,10 +8,7 @@ import {
   Star,
   ShieldCheck,
   Award,
-  Clock,
-  ArrowRight,
-  CheckCircle2,
-  PhoneCall
+  ArrowRight
 } from "lucide-react";
 
 export default function Hero() {
@@ -25,49 +22,48 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative pt-8 pb-16 lg:pt-14 lg:pb-24 overflow-hidden bg-mesh-medical">
-      {/* Decorative backdrop glow elements */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-teal-400/10 rounded-full blur-3xl pointer-events-none" />
+    <section className="relative pt-4 pb-12 sm:pt-10 sm:pb-20 lg:pt-14 lg:pb-24 overflow-hidden bg-mesh-medical">
+      {/* Decorative backdrop glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[340px] sm:w-[600px] lg:w-[800px] h-[300px] sm:h-[400px] bg-teal-400/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div className="flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* Left Column: Healthcare Conversion Copy */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left">
+          {/* Left Column: Conversion Copy */}
+          <div className="w-full lg:col-span-7 flex flex-col items-start text-left order-1">
+            
             {/* Trust Pill Badges */}
-            <div className="flex flex-wrap items-center gap-2 mb-5">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-800 text-xs font-bold shadow-xs">
-                <ShieldCheck className="w-3.5 h-3.5 text-teal-600" />
-                NABH & JCI Accredited
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-4 sm:mb-5">
+              <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-800 text-[11px] sm:text-xs font-bold shadow-xs">
+                <ShieldCheck className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                <span>NABH & JCI Accredited</span>
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold">
-                <div className="flex text-amber-500">
-                  <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-                </div>
-                4.9/5 Rating (1,400+ Verified Reviews)
+              <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-[11px] sm:text-xs font-bold">
+                <Star className="w-3 h-3 fill-amber-400 text-amber-400 shrink-0" />
+                <span>4.9/5 (1.4k+ Reviews)</span>
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-medblue-700 text-xs font-bold">
-                <Award className="w-3.5 h-3.5 text-medblue-600" />
-                18+ Board-Certified Specialists
+              <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-medblue-700 text-[11px] sm:text-xs font-bold">
+                <Award className="w-3.5 h-3.5 text-medblue-600 shrink-0" />
+                <span>18+ Specialists</span>
               </span>
             </div>
 
-            {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.12] mb-6">
+            {/* Responsive Main Headline */}
+            <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.14] sm:leading-[1.12] mb-4 sm:mb-6">
               Modern Healthcare, <br />
               <span className="text-gradient-teal">Zero Waiting Queue.</span>
             </h1>
 
             {/* Sub-headline */}
-            <p className="text-lg sm:text-xl text-slate-600 leading-relaxed max-w-2xl mb-8 font-normal">
-              Experience outpatient clinical excellence without the waiting room chaos. Consult Harvard & Johns Hopkins-trained specialists with instant digital booking, real-time arrival estimates, and in-house advanced 3D diagnostics.
+            <p className="text-sm xs:text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mb-6 sm:mb-8 font-normal">
+              Experience outpatient clinical excellence without the waiting room chaos. Consult Harvard & Johns Hopkins-trained specialists with instant digital booking, real-time arrival estimates, and in-house 3D diagnostics.
             </p>
 
-            {/* Conversion CTA Group */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mb-10">
+            {/* Conversion CTA Group (Min 48px touch targets) */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto mb-8 sm:mb-10">
               <button
                 onClick={() => openBookingModal()}
-                className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl bg-gradient-to-r from-teal-600 to-teal-500 hover:from-teal-700 hover:to-teal-600 text-white text-base font-bold shadow-glow-teal hover:shadow-lg transition-all duration-200 active:scale-[0.98] group"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 min-h-[48px] px-6 sm:px-7 py-3.5 rounded-2xl bg-gradient-to-r from-teal-600 to-teal-500 hover:from-teal-700 hover:to-teal-600 text-white text-sm sm:text-base font-bold shadow-glow-teal hover:shadow-lg transition-all duration-200 active:scale-[0.98] group"
               >
                 <Calendar className="w-5 h-5 text-teal-100 group-hover:scale-110 transition-transform" />
                 <span>Book Consultation Now</span>
@@ -76,7 +72,7 @@ export default function Hero() {
 
               <button
                 onClick={handleWhatsApp}
-                className="inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl bg-white hover:bg-slate-50 text-slate-800 text-base font-bold border border-slate-300 shadow-soft transition-all duration-200 active:scale-[0.98] group"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 min-h-[48px] px-5 sm:px-6 py-3.5 rounded-2xl bg-white hover:bg-slate-50 text-slate-800 text-sm sm:text-base font-bold border border-slate-300 shadow-soft transition-all duration-200 active:scale-[0.98] group"
               >
                 <MessageCircle className="w-5 h-5 text-emerald-600 group-hover:scale-110 transition-transform" />
                 <span>Chat on WhatsApp</span>
@@ -84,13 +80,13 @@ export default function Hero() {
             </div>
 
             {/* Micro-Trust Highlights */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-200/90 w-full">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-5 sm:pt-6 border-t border-slate-200/90 w-full">
               {CLINIC_INFO.stats.map((stat, idx) => (
                 <div key={idx} className="flex flex-col">
-                  <span className="text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight">
+                  <span className="text-xl xs:text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight">
                     {stat.value}
                   </span>
-                  <span className="text-xs text-slate-500 font-medium mt-0.5">
+                  <span className="text-[11px] sm:text-xs text-slate-500 font-medium mt-0.5">
                     {stat.label}
                   </span>
                 </div>
@@ -98,8 +94,8 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right Column: Interactive 3D Medical Scene */}
-          <div className="lg:col-span-5 relative">
+          {/* Right Column: 3D Medical Scene with Mobile Safety */}
+          <div className="w-full lg:col-span-5 order-2">
             <MedicalHeroScene />
           </div>
 
